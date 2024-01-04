@@ -10,7 +10,7 @@ fn main() {
         io::stdin().read_line(&mut input).expect("Failed to read line");
 
         if input.trim().to_lowercase() == "quit" {
-            println!("Quitting");
+            println!("Quitting...");
             break;
         } else {
             println!("You said {}", input);   
