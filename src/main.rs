@@ -20,6 +20,9 @@ enum Directions {
     West,
 }
 
+
+
+
 struct GameMap {
     tiles: Vec<Vec<Tile>>
 }
@@ -69,15 +72,29 @@ fn main() {
             Tile::Water => println!("You are in water"),
         }
 
+        println!("You are at {}, {}", player.x, player.y);
+
         let mut input = String::new();
         io::stdin().read_line(&mut input).expect("Failed to read line");
+        input = input.trim().to_lowercase();
 
-        if input.trim().to_lowercase() == "quit" {
+        if input == "quit" {
             println!("Quitting...");
             break;
-        } else {
-            println!("Player name is {}, player health is {}", player.name, player.health);
-            println!("You said {}", input);   
+        }
+
+        if input.starts_with("move ") {
+            let direction = input.trim_start_matches("move ");
+            match direction {
+                "north" => player.y += 1,
+                "south" => player.y -= 1,
+                "east" => player.x += 1,
+                "west" => player.x -= 1,
+                _ => println!("Invalid direction"),
+            }
+        }
+        else {
+            println!("unknown command '{}'", input);
         }
     }
 
