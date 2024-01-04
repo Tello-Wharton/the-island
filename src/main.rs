@@ -13,7 +13,7 @@ fn main() {
             println!("Quitting");
             break;
         } else {
-            println!("You said {}", input.to_uppercase());   
+            println!("You said {}", input);   
         }
     }
 
