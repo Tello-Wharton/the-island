@@ -53,7 +53,7 @@ impl GameMap {
 }
 
 fn main() {
-    println!("Enter a string, I'll yell it back. Unless you tell me to quit. Then I will quit");
+    println!("Welcome to The Island...");
 
     let mut player = Player {
         name: String::from("Player 1"),
