@@ -13,6 +13,13 @@ enum Tile {
     Water,
 }
 
+enum Directions {
+    North,
+    South,
+    East,
+    West,
+}
+
 struct GameMap {
     tiles: Vec<Vec<Tile>>
 }
@@ -36,6 +43,10 @@ impl GameMap {
         }
         GameMap { tiles }
     }
+
+    fn get_tile(&self, x: i32, y: i32) -> &Tile {
+        &self.tiles[x as usize][y as usize]
+    }
 }
 
 fn main() {
@@ -51,6 +62,13 @@ fn main() {
     let map = GameMap::new();
 
     loop {
+        
+        let tile = map.get_tile(player.x, player.y);
+        match tile {
+            Tile::Land => println!("You are on land"),
+            Tile::Water => println!("You are in water"),
+        }
+
         let mut input = String::new();
         io::stdin().read_line(&mut input).expect("Failed to read line");
 
