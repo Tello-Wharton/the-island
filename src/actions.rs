@@ -19,11 +19,11 @@ static ACTIONS: [Action; 1] = [
 ];
 
 trait ActionsForString {
-    fn parse_with_action(&self, prefix: &Action) -> Option<(&str)>;
+    fn parse_with_action(&self, prefix: &Action) -> Option<&str>;
 }
 
 impl ActionsForString for str {
-    fn parse_with_action(&self, action: &Action) -> Option<(&str)> {
+    fn parse_with_action(&self, action: &Action) -> Option<&str> {
         self.strip_prefix(action.prefix)
     }
 }
