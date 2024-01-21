@@ -4,56 +4,9 @@ use std::io;
 mod actions;
 use actions::get_action;
 
-struct Player {
-    name: String,
-    health: i32,
-    x: i32,
-    y: i32,
-}
+mod state;
+use state::{Player, GameMap, Tile};
 
-enum Tile {
-    Land,
-    Water,
-}
-
-enum Directions {
-    North,
-    South,
-    East,
-    West,
-}
-
-
-
-
-struct GameMap {
-    tiles: Vec<Vec<Tile>>
-}
-
-// Add method to create game map with a 100x100 grid of land, surrounded by 100 tiles of water
-
-impl GameMap {
-    fn new() -> GameMap {
-        let mut tiles = Vec::new();
-        for x in 0..300 {
-            let mut row = Vec::new();
-            for y in 0..300 {
-                
-                if x < 100 || x > 200 || y < 100 || y > 200 {
-                    row.push(Tile::Water);
-                } else {
-                    row.push(Tile::Land);
-                }
-            }
-            tiles.push(row);
-        }
-        GameMap { tiles }
-    }
-
-    fn get_tile(&self, x: i32, y: i32) -> &Tile {
-        &self.tiles[x as usize][y as usize]
-    }
-}
 
 fn main() {
     println!("Welcome to The Island...");
@@ -81,7 +34,11 @@ fn main() {
         io::stdin().read_line(&mut input).expect("Failed to read line");
         input = input.trim().to_lowercase();
 
-        get_action(&input);
+        if let Some((action, action_args)) = get_action(&input) {
+            (action.take_action)(action_args, &mut player, &map);
+        } else {
+            println!("I don't understand {}", input);
+        }
     }
 
 }
