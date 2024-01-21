@@ -1,4 +1,14 @@
 
+struct Action {
+    prefix: &'static str,
+}
+
+static  ACTIONS: [Action; 1] = [
+    Action {
+        prefix: "move ",
+    },
+];
+
 trait ActionsForString {
 
     fn get_action_and_remaining<'a, 'b>(&'a self, prefix: &'b str) -> Option<(&'b str, &'a str)>;
@@ -19,10 +29,14 @@ impl ActionsForString for str {
 
 pub fn get_action(input: &str) {
 
-    if let Some((prefix, remaining)) = input.get_action_and_remaining("move ") {
-        println!("Prefix: {}, Remaining: {}", prefix, remaining);
-    } 
-    else if input == "quit" {
+    for action in ACTIONS.iter() {
+        if let Some((prefix, remaining)) = input.get_action_and_remaining(action.prefix) {
+            println!("Prefix: {}, Remaining: {}", prefix, remaining);
+            return;
+        }
+    }
+
+    if input == "quit" {
         println!("Quitting...");
     } 
     else {
