@@ -1,6 +1,9 @@
 
 use std::io;
 
+mod actions;
+use actions::get_action;
+
 struct Player {
     name: String,
     health: i32,
@@ -78,24 +81,7 @@ fn main() {
         io::stdin().read_line(&mut input).expect("Failed to read line");
         input = input.trim().to_lowercase();
 
-        if input == "quit" {
-            println!("Quitting...");
-            break;
-        }
-
-        if input.starts_with("move ") {
-            let direction = input.trim_start_matches("move ");
-            match direction {
-                "north" => player.y += 1,
-                "south" => player.y -= 1,
-                "east" => player.x += 1,
-                "west" => player.x -= 1,
-                _ => println!("Invalid direction"),
-            }
-        }
-        else {
-            println!("unknown command '{}'", input);
-        }
+        get_action(&input);
     }
 
 }
