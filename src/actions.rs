@@ -24,11 +24,7 @@ trait ActionsForString {
 
 impl ActionsForString for str {
     fn parse_with_action(&self, action: &Action) -> Option<(&str)> {
-        if let Some(remaining) = self.strip_prefix(action.prefix) {
-            Some(remaining)
-        } else {
-            None
-        }
+        self.strip_prefix(action.prefix)
     }
 }
 
