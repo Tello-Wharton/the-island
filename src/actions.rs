@@ -19,11 +19,11 @@ static ACTIONS: [Action; 1] = [
 ];
 
 trait ActionsForString {
-    fn get_action_and_remaining(&self, prefix: &Action) -> Option<(&str)>;
+    fn parse_with_action(&self, prefix: &Action) -> Option<(&str)>;
 }
 
 impl ActionsForString for str {
-    fn get_action_and_remaining(&self, action: &Action) -> Option<(&str)> {
+    fn parse_with_action(&self, action: &Action) -> Option<(&str)> {
         if let Some(remaining) = self.strip_prefix(action.prefix) {
             Some(remaining)
         } else {
@@ -34,7 +34,7 @@ impl ActionsForString for str {
 
 pub fn get_action(input: &str) {
     for action in ACTIONS.iter() {
-        if let Some(remaining) = input.get_action_and_remaining(&action) {
+        if let Some(remaining) = input.parse_with_action(&action) {
             println!("Action: {}, Remaining: {}", action, remaining);
             return;
         }
